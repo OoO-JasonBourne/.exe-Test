@@ -1,4 +1,5 @@
 const {
+    ipcMain,
     app,
     BrowserWindow,
     dialog
@@ -12,9 +13,10 @@ function createWindow() {
     // 创建窗口
     win = new BrowserWindow({
         width: 800,
-        height: 600,
+        height: 630,
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            preload: path.join(__dirname, 'preload.js')
         },
         minimizable: false,
     })
@@ -32,25 +34,39 @@ function createWindow() {
         event.preventDefault()
     })
 
+    let num = 0;
+    // 监听事件
+    ipcMain.on('set-title', (event, title) => {
+        // const webContents = event.sender
+        // const win = BrowserWindow.fromWebContents(webContents)
+        num = title
+        // win.setTitle(title)
+    })
+    
     // 当窗口关闭时，阻止默认行为，提示用户是否真的要关闭
     win.on('close', (event) => {
-        event.preventDefault()
-        const choice = dialog.showMessageBoxSync(win, {
-            type: 'question',
-            buttons: ['哼，就关', '我点错了'],
-            defaultId: 0,
-            message: '亲爱的不要关闭页面啊',
-            title: 'OoO'
-        })
-        if (choice === 0) {
-            // win = null
-            // app.quit()
-            dialog.showMessageBoxSync({
-                type: 'info',
-                title: '略略略',
-                message: '你关不掉哦',
-                detail: '说喜欢我才能关哦'
+        if (num == 0) {
+            event.preventDefault()
+            const choice = dialog.showMessageBoxSync(win, {
+                type: 'question',
+                buttons: ['哼，就关', '我点错了'],
+                defaultId: 0,
+                message: '亲爱的不要关闭页面啊',
+                title: 'OoO'
             })
+            if (choice === 0) {
+                // win = null
+                // app.quit()
+                dialog.showMessageBoxSync({
+                    type: 'info',
+                    title: '略略略',
+                    message: '你关不掉哦',
+                    detail: '说喜欢我才能关哦'
+                })
+            }
+        } else {
+            win = null
+            app.quit()
         }
     })
 }

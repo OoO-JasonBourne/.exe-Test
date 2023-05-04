@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CSP -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
      -->
-     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline';">
 
     <title>么么哒</title>
-    <link rel="stylesheet" href="style.css"> 
-  </head>
-  <body>
+    <link rel="stylesheet" href="style.css">
+    <script src="./preload.js"></script>
+</head>
+
+<body>
     <div class="love">
         <h2>
             <img src="./imgs/2412.gif" alt="">
@@ -21,86 +24,102 @@
         </h2>
         <hr>
         <br>
-    
+
         <button class="btn1" onclick="love()">我也喜欢你呀</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <button class="btn2" onclick="helloWorld()">哼，讨厌你</button>
 
 
         <div id="dialog" class="dialog">
-        <div class="dialog-content">
-            <p>有多喜欢嘞</p>
-            <button class="dialog-button" onclick="closeDialog(true)">超级超级喜欢</button>
-            <button class="dialog-button" onclick="closeDialog(false)">比你喜欢我多一点</button>
+            <div class="dialog-content">
+                <p>有多喜欢嘞</p>
+                <button class="dialog-button" onclick="closeDialog(true)">超级超级喜欢</button>
+                <button class="dialog-button" onclick="closeDialog(false)">比你喜欢我多一点</button>
+            </div>
         </div>
+        <div id="dialog1" class="dialog1">
+            <div class="dialog-content1">
+                <img src="./imgs/1.jpg" class="img1" alt="">
+                <br>
+                <img src="./imgs/2.jpg"  class="img1" alt="">
+            </div>
+            <button onclick="closeImg()" class="btn3">暂时隐藏美美的Photos</button>
         </div>
 
     </div>
     <script>
         // 哼
         let index = 0;
-        function helloWorld(){
-            if(index == 0){
+        function helloWorld() {
+            if (index == 0) {
                 alert('o>_<o，不喜欢这个回答');
                 index++
-            } else if (index == 1){
+            } else if (index == 1) {
                 alert('钱都给你花');
                 index++
-            } else if(index == 2){
+            } else if (index == 2) {
                 alert('吵架都是我错');
                 index++
-            } else if(index == 3){
+            } else if (index == 3) {
                 alert('掉水里先救你');
                 index++
-            } else if(index == 4){
+            } else if (index == 4) {
                 alert('讲话温柔不大声');
                 index++
-            } else if(index == 5){
+            } else if (index == 5) {
                 alert('逛街绝不喊累');
                 index++
-            } else if(index == 6){
+            } else if (index == 6) {
                 alert('新衣服给你买个遍');
                 index++
-            } else if(index == 7){
+            } else if (index == 7) {
                 alert('你吃肉我刷碗');
                 index++
-            } else if(index == 8){
+            } else if (index == 8) {
                 alert('每句话都听你');
                 index++
-            }  else if(index == 9){
+            } else if (index == 9) {
                 alert('我负责赚钱养家你负责美美美美美');
                 index++
-            } else if(index == 10){
+            } else if (index == 10) {
                 alert('午后的阳光都归你，这样暖。周末的回笼觉都归你，你太懒。这世界上你想要的都归你，你归我管。');
                 index++
             }
-            else if(index == 11){
+            else if (index == 11) {
                 alert('想出去玩，有碧蓝的天、明媚的太阳，清新的空气、还有可爱的你OoO');
                 index++
-            } else if(index == 12){
+            } else if (index == 12) {
                 alert('你就是我心里最重要的那个人呀！爱你爱你爱你，和亲爱的永远在一起');
                 index++
-            } else if(index == 13){
+            } else if (index == 13) {
                 alert('哼，你还点这个回答，下次你就不能点了哦^=^');
                 index++
-            }        
+            }
         }
-        
+
         // 么么哒
         function love() {
-        document.getElementById("dialog").style.display = "block";
+            document.getElementById("dialog").style.display = "block";
         }
 
         function closeDialog(result) {
-        document.getElementById("dialog").style.display = "none";
-        if (result) {
-            alert("哈哈哈，么么哒，亲亲抱抱举高高");
-        } else {
-            alert("哼，是我爱你比你爱我多");
+            document.getElementById("dialog").style.display = "none";
+            if (result) {
+                alert("哈哈哈，么么哒，亲亲抱抱举高高");
+            } else {
+                alert("哼，是我爱你比你爱我多");
+            }
+            alert("现在可以关闭了哦");
+            const title = '1';
+            window.electronAPI.setTitle(title)
+            document.getElementById("dialog1").style.display = "block";
         }
+        function closeImg(){
+            document.getElementById("dialog1").style.display = "none";
         }
 
     </script>
 
-  </body>
+</body>
+
 </html>
